@@ -62,29 +62,27 @@
     var firstTrainTime = childSnapshot.val().firstTrain;
     var trainFrequency = childSnapshot.val().frequency;
   
-    // // Calculate Next Arrival based on first train, current time and frequency
-    // //Asumptions 
-    // var tFrequency = 3; // "#frequency-input"
-    // // Time is 3:30 AM
-    // var firstTime = "03:30"; //"#train-time-input"
-    // // First Time (pushed back 1 year to make sure it comes before current time)
-    // var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
-    // // Difference between the times
-    // var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-    // // Time apart (remainder)
-    // var tRemainder = diffTime % tFrequency;
-    // // Minute Until Train
-    // var tMinutesTillTrain = tFrequency - tRemainder;
-    // // Next Train
-    // var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    // Calculate Next Arrival based on first train, current time and frequency
+    // First Time (pushed back 1 year to make sure it comes before current time)
+    var firstTimeConverted = moment(firstTrainTime, "HH:mm").subtract(1, "years");
+    // Difference between the times
+    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    // Time apart (remainder)
+    var tRemainder = diffTime % trainFrequency;
+    // Minute Until Train
+    var tMinutesTillTrain = trainFrequency - tRemainder;
+    // Next Train
+    var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    // Format Next Train to only
+    var nextTrainConverted =  moment(nextTrain).format("hh:mm a");
 
     // Create the new row
     var newRow = $("<tr>").append(
       $("<td>").text(trainName),
       $("<td>").text(trainDestination),
       $("<td>").text(trainFrequency),
-      $("<td>").text("Next Arrival"),
-      $("<td>").text("Minutes Away")
+      $("<td>").text(nextTrainConverted),
+      $("<td>").text(tMinutesTillTrain + " minutes")
     );
   
     // Append the new row to the table
