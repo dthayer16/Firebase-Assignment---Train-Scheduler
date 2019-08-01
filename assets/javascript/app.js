@@ -80,7 +80,7 @@
     var newRow = $("<tr>").append(
       $("<td>").text(trainName),
       $("<td>").text(trainDestination),
-      $("<td>").text(trainFrequency),
+      $("<td>").text(trainFrequency + " minutes"),
       $("<td>").text(nextTrainConverted),
       $("<td>").text(tMinutesTillTrain + " minutes")
     );
